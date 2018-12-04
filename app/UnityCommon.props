@@ -1,0 +1,9 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <UnityWSASolutionName>PS Tutorial</UnityWSASolutionName>
+        <UnityWSASolutionDir>D:\Unity Projects\PS Tutorial\app\</UnityWSASolutionDir>
+        <UnityProjectDir>D:\Unity Projects\PS Tutorial\</UnityProjectDir>
+        <UnityWSAPlayerDir>D:\Unity\2018.2.16f1\Editor\Data\PlaybackEngines\MetroSupport\</UnityWSAPlayerDir>
+        <UnityWSAToolsDir>$(UnityWSASolutionDir)Unity\Tools\</UnityWSAToolsDir>
+    </PropertyGroup>
+</Project>
