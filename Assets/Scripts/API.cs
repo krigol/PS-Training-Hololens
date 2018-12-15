@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
 public class API : MonoBehaviour {
@@ -27,26 +28,50 @@ public class API : MonoBehaviour {
         form.AddField("Username", "Gotta find a betah way");
         byte[] rawFormData = form.data;
 
-        WWW request = new WWW(URL, rawFormData, headers);
-        StartCoroutine(OnResponse(request));
+        UnityWebRequest req = UnityWebRequest.Get(URL);
+
+        StartCoroutine(OnResponse(req));
     }
 
-    private IEnumerator OnResponse(WWW req)
+    private IEnumerator OnResponse(UnityWebRequest req)
     {
-        yield return req;
-        
-        var response = JsonUtility.FromJson<JsonPlaceholderResponseDto>(req.text);
-        Debug.Log(response.Username + " " + response.id);
-        
-        var count = Convert.ToInt32(response.id)/10;
+        yield return req.SendWebRequest();
 
-        var theWorld = GameObject.Find("The World");
-        
-        for (float i = 0; i < count; i++)
+        if (req.isNetworkError || req.isHttpError)
         {
-            Instantiate(prefab, new Vector3(-4f + 0.6f * i, 0.5f, 3f), new Quaternion(), theWorld.transform);
-            
-            yield return new WaitForSeconds(0.1f);
+            Debug.Log(req.error);
         }
+
+        Debug.Log(req.downloadHandler.text);
+
+        var response = JsonHelper.FromJson<JsonPlaceholderResponseDto>(fixJson(req.downloadHandler.text));
+        
+        var theWorld = GameObject.Find("The World");
+
+        var currentId = 0;
+
+        foreach (var item in response)
+        {
+            if (currentId != item.userId)
+            {
+
+                for (int height = 1; height <= item.userId; height++)
+                {
+                    for (int length = 1; length <= item.userId; length++)
+                    {
+                        Instantiate(prefab, new Vector3(-4f + 0.6f * length, height/2, 3f + item.userId), new Quaternion(), theWorld.transform);
+
+                        yield return new WaitForSeconds(0.05f);
+                    }
+                }
+                currentId = item.userId;
+            }
+        }
+    }
+
+    string fixJson(string value)
+    {
+        value = "{\"Items\":" + value + "}";
+        return value;
     }
 }

@@ -57,6 +57,7 @@
      <Compile Include="Assets\Scripts\CubeLogic.cs" />
      <Compile Include="Assets\Scripts\CubeSounds.cs" />
      <Compile Include="Assets\Scripts\Cursor.cs" />
+     <Compile Include="Assets\Scripts\JsonHelper.cs" />
      <Compile Include="Assets\Scripts\JsonPlaceholderResponseDto.cs" />
      <Compile Include="Assets\Scripts\Selfdestruct.cs" />
      <Compile Include="Assets\Scripts\Shoot.cs" />

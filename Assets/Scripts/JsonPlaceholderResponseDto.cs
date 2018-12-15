@@ -2,6 +2,8 @@
 
 [Serializable]
 public class JsonPlaceholderResponseDto {
-    public string Username;
-    public string id;
+    public int userId;
+    public int id;
+    public string title;
+    public string body;
 }
