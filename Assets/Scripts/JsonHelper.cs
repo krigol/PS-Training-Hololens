@@ -5,7 +5,7 @@ public static class JsonHelper
 {
     public static T[] FromJson<T>(string json)
     {
-        Wrapper<T> wrapper = JsonUtility.FromJson<Wrapper<T>>(json);
+        Wrapper<T> wrapper = JsonUtility.FromJson<Wrapper<T>>(fixJson(json));
         return wrapper.Items;
     }
 
@@ -27,5 +27,11 @@ public static class JsonHelper
     private class Wrapper<T>
     {
         public T[] Items;
+    }
+
+    private static string fixJson(string value)
+    {
+        value = "{\"Items\":" + value + "}";
+        return value;
     }
 }

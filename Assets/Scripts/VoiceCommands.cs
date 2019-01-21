@@ -27,6 +27,10 @@ public class VoiceCommands : MonoBehaviour {
         {
             BroadcastMessage("GetCubes");
         });
+        keywords.Add("Get opportunities", () =>
+        {
+            BroadcastMessage("GetSfOpportunities");
+        });
 
         keywordRecognizer = new KeywordRecognizer(keywords.Keys.ToArray());
 
